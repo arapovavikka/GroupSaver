@@ -10,19 +10,23 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:weightSum="6">
-        <EditText
+        <TextView
+            android:text="Vk User"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextAccountInfo"
+            android:layout_height="match_parent"
+            android:id="@+id/textViewUserInfo"
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
-            android:layout_weight="5" />
+            android:layout_weight="5"
+            android:textSize="18dp"
+            android:textAlignment="viewStart"
+            android:gravity="center_vertical" />
         <Button
             android:text="Favourite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/buttonFavourite"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark" />
@@ -43,13 +47,20 @@
             android:text="Search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:maxWidth="30px"
             android:id="@+id/buttonSearchGroup"
             android:layout_weight="1" />
     </LinearLayout>
     <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listViewShowGroups" />
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_weight="14" />
+    <Button
+        android:text="Load more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxWidth="30px"
+        android:id="@+id/buttonLoadMoreGroups"
+        android:layout_weight="1" />
 </LinearLayout>

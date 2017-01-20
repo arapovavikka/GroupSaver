@@ -1,3 +1,6 @@
+using System;
+using Android.Runtime;
+using Java.IO;
 using SQLite;
 
 namespace GroupSaver.DateBaseLayer.Model

@@ -9,13 +9,13 @@ namespace GroupSaver.Tests
     [TestFixture]
     public class DateBaseTest
     {
-        private DataBase.DateBaseLayer _database;
+        private DataBase.DataBaseLayer _database;
         private Random _rnd = new Random();
 
         [SetUp]
         public void Setup()
         {
-            _database = new DataBase.DateBaseLayer();
+            _database = new DataBase.DataBaseLayer();
             _database.CreateGroupTable();
             _database.CreatePersonTable();
             _database.CreateGroupSubscribeTable();

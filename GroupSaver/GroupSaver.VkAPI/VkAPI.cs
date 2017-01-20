@@ -14,23 +14,22 @@ namespace GroupSaver.VkAPI
 {
     public class VkConnector
     {
-        private string _userId;
-        private string _token;
+        private static string _userId;
+        private static string _token;
 
-        private const int NumberOfGroupsLoaded = 50;
-        private const int NumberOfPostsLoaded = 30;
+        public static int NumberOfGroupsLoaded = 50;
+        public static int NumberOfPostsLoaded = 30;
 
-        public VkConnector()
+        public static string GetUserId()
         {
-            _userId = string.Empty;
-            _token = string.Empty;
+            return _userId;
         }
 
         public Intent LoginToVk(Context context)
         {
             var auth = new OAuth2Authenticator(
                 clientId: "5810725",
-                scope: "groups, friends",
+                scope: "groups, friends, wall",
                 authorizeUrl: new Uri("https://oauth.vk.com/authorize"),
                 redirectUrl: new Uri("https://oauth.vk.com/blank.html")
                 );
@@ -60,16 +59,16 @@ namespace GroupSaver.VkAPI
                                   offset + "&count=" + NumberOfGroupsLoaded + "&v=5.62&access_token=" + _token);
             var response = request.GetResponse();
 
-            var defenition = new {id = 0, name = "", screen_name = ""};
+            var defenitionItem = new {id = 0, name = "", screen_name = ""};
 
             var text = response.GetResponseText();
             var parseJson = JObject.Parse(text);
             var currentObjects = parseJson["response"]["items"].Children().ToList();
 
-            var resultGroups = new List<Group>();
+           var resultGroups = new List<Group>();
             foreach(var currObject in currentObjects)
             {
-                var parsed = JsonConvert.DeserializeAnonymousType(currObject.ToString(), defenition);
+                var parsed = JsonConvert.DeserializeAnonymousType(currObject.ToString(), defenitionItem);
                 var group = new Group()
                 {
                     VkId = parsed.id,
@@ -86,11 +85,11 @@ namespace GroupSaver.VkAPI
             if (_token != string.Empty)
             {
                 var request =
-                WebRequest.Create("https://api.vk.com/method/users.get?owner_id=" + groupVkId + "&offset=" + offset +
-                                  "&count=" + NumberOfPostsLoaded + "&filter=all&v=5.62&access_token=" + _token);
+                WebRequest.Create("https://api.vk.com/method/wall.get?owner_id=" + (groupVkId*(-1)) + "&offset=" + offset +
+                                  "&count=" + NumberOfPostsLoaded + "&filter=owner&extended=0&v=5.62&access_token=" + _token);
                 var response = request.GetResponse();
 
-                var defenition = new { id = 0, owner_id = 0, date = 0, text = "" };
+                var defenition = new { id = 0, from_id = 0, owner_id = 0, date = 0, marked_as_ads = 0, post_type = "", text = "" };
 
                 var text = response.GetResponseText();
                 var parseJson = JObject.Parse(text);
@@ -102,7 +101,7 @@ namespace GroupSaver.VkAPI
                     var post = JsonConvert.DeserializeAnonymousType(currObj.ToString(), defenition);
                     resultPosts.Add(new Post()
                     {
-                        GroupId = post.owner_id,
+                        GroupId = -post.owner_id,
                         Text = post.text,
                         VkId = post.id
                     });
@@ -139,5 +138,6 @@ namespace GroupSaver.VkAPI
             }
             return new Person();
         }
+
     }
 }

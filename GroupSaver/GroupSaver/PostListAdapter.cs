@@ -6,15 +6,15 @@ using GroupSaver.DateBaseLayer.Model;
 
 namespace GroupSaver
 {
-    public class GroupListAdapter:BaseAdapter<Group>
+    class PostListAdapter : BaseAdapter<Post>
     {
         private readonly Activity _context;
-        private readonly List<Group> _list;
+        private readonly List<Post> _list;
 
-        public GroupListAdapter(Activity context, List<Group> list)
+        public PostListAdapter(Activity context, List<Post> posts)
         {
             _context = context;
-            _list = list;
+            _list = posts;
         }
 
         public override long GetItemId(int position)
@@ -24,16 +24,16 @@ namespace GroupSaver
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = convertView;           
+            var view = convertView;
             var item = this[position];
-            if(view == null)
+            if (view == null)
                 view = _context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = item.Name;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = item.Text;
             return view;
         }
 
         public override int Count => _list.Count;
 
-        public override Group this[int position] => _list[position];
+        public override Post this[int position] => _list[position];
     }
 }

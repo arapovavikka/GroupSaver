@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="16">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:weightSum="6">
+        <TextView
+            android:text="Group Name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textViewGroupName"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:layout_weight="5.9" />
+        <Button
+            android:text="+"
+            android:maxWidth="10px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:id="@+id/buttonSubscribe"
+            android:layout_weight="0.1" />
+    </LinearLayout>
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="15"
+        android:id="@+id/listViewPosts" />
+    <Button
+        android:text="Load more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:id="@+id/buttonLoadMorePosts" />
+</LinearLayout>
